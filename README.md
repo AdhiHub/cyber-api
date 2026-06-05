@@ -1,79 +1,39 @@
 # ☠️ Cyber API
 
-> Backend-powered encryption & hashing toolkit.  
-> **The logic runs on the server** — not in the browser.
+> Browser-powered encryption & hashing toolkit.  
+> **All code runs client-side** — view the source to see how it works!
 
 ---
 
-## 🔐 Why a Backend?
+## 🔧 What It Does
 
-Your first cyber-toolkit runs everything in the browser (JavaScript). Anyone can view the source and see how it works.
+### 1. 🔐 AES-256 Encryption
+Enter text + a secret key → get encrypted output. Use the same key to decrypt.
 
-This project fixes that:
+### 2. 🔢 Hash Generator
+Generate SHA-256, SHA-512, or SHA-1 hashes.
 
-| Tool | Where logic runs | Can users see the code? |
-|------|-----------------|----------------------|
-| cyber-toolkit | Browser (frontend) | ✅ Yes — open DevTools |
-| **cyber-api** | Server (Node.js) | ❌ No — only the API |
-
-The browser only sends/receives data — the actual encryption, decryption, and hashing happen server-side.
+### 3. 🔑 Decrypt
+Decrypt text back to original using your secret key.
 
 ---
 
-## 🚀 How to Run
+## 🚀 How to Use
 
+Open `public/index.html` in any browser. No installation needed.
+
+Or run a local server:
 ```bash
-# 1. Install dependencies
-npm install
-
-# 2. Create .env file with a secret key
-cp .env.example .env
-
-# 3. Edit .env — change ENCRYPTION_KEY to a random 64-char hex string
-#    You can generate one with: node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
-
-# 4. Start the server
-npm start
-```
-
-Then open **http://localhost:3000** in your browser.
-
----
-
-## 📡 API Endpoints
-
-| Endpoint | Method | What it does |
-|----------|--------|-------------|
-| `/api/encrypt` | POST | AES-256-CBC encrypt text |
-| `/api/decrypt` | POST | Decrypt text |
-| `/api/hash` | POST | Generate SHA-256, SHA-512, or MD5 hash |
-| `/api/status` | GET | Check if server is running |
-
-### Example
-
-```bash
-curl -X POST http://localhost:3000/api/encrypt \
-  -H "Content-Type: application/json" \
-  -d '{"text":"Hello World"}'
-```
-
-Response:
-```json
-{
-  "success": true,
-  "result": "a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4:7b8e9f1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9"
-}
+npx serve .
 ```
 
 ---
 
-## 🛡️ Security Features
+## 🛠️ Tech Stack
 
-- **Encryption key in `.env`** — never exposed to frontend
-- **AES-256-CBC** — industry standard encryption
-- **Random IV** — every encryption produces different output
-- **`.gitignore` ignores `.env`** — your key stays local
-- **Server-side only** — hashing/encryption logic never reaches the browser
+- **HTML5** — structure
+- **CSS3** — dark cyber theme
+- **JavaScript (Web Crypto API)** — all encryption & hashing logic, fully visible
 
 ---
 
@@ -81,15 +41,14 @@ Response:
 
 ```
 cyber-api/
-├── server.js          # Express backend (all the real logic)
-├── package.json
-├── .env.example       # Template for your secret key
-├── .gitignore
 ├── public/
-│   ├── index.html     # Frontend UI
+│   ├── index.html     # Main page
 │   ├── style.css      # Dark cyber theme
-│   └── script.js      # API calls (no sensitive logic)
+│   └── script.js      # All crypto logic (visible!)
+├── package.json
 └── README.md
+```
+
 ---
 
 ## 🙋‍♂️ About
