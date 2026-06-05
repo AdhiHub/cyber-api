@@ -1,6 +1,7 @@
 # ☠️ Cyber API
 
-> Encrypt · Decrypt · Hash  > 🔗 **Live Demo:** [https://adhihub.github.io/cyber-api/](https://adhihub.github.io/cyber-api/)
+> Encrypt · Decrypt · Hash$1
+> 🔗 **Toolkit Version:** [https://adhihub.github.io/cyber-toolkit/](https://adhihub.github.io/cyber-toolkit/)  > 🔗 **Live Demo:** [https://adhihub.github.io/cyber-api/](https://adhihub.github.io/cyber-api/)
 
 ---
 
