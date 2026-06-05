@@ -1,28 +1,18 @@
-const API = ""
-
-async function api(path, data) {
-  const res = await fetch(API + path, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(data)
-  })
-  return res.json()
+async function getKey(secret) {
+  const enc = new TextEncoder()
+  const keyData = await crypto.subtle.importKey(
+    "raw", enc.encode(secret.padEnd(32, "X").slice(0, 32)),
+    { name: "AES-CBC" }, false, ["encrypt", "decrypt"]
+  )
+  return keyData
 }
 
-// Server status
-async function checkStatus() {
-  const el = document.getElementById("status")
-  try {
-    const res = await fetch(API + "/api/status")
-    const data = await res.json()
-    el.textContent = "☠️ Server online — " + data.endpoints.length + " endpoints available"
-    el.className = "status online"
-  } catch {
-    el.textContent = "⚠️ Server offline — run 'node server.js' to start"
-    el.className = "status offline"
-  }
+function toBase64(buf) {
+  return btoa(String.fromCharCode(...new Uint8Array(buf)))
 }
-checkStatus()
+function fromBase64(str) {
+  return Uint8Array.from(atob(str), c => c.charCodeAt(0)).buffer
+}
 
 // Tabs
 document.querySelectorAll(".tab").forEach(tab => {
@@ -37,23 +27,37 @@ document.querySelectorAll(".tab").forEach(tab => {
 // Encrypt
 document.getElementById("encryptBtn").addEventListener("click", async () => {
   const text = document.getElementById("encryptInput").value
+  const secret = document.getElementById("encryptKey").value || "default-key"
   const el = document.getElementById("encryptResult")
   if (!text) { el.textContent = "Enter some text first"; el.className = "result-box error"; return }
-  el.textContent = "Encrypting..."
-  const data = await api("/api/encrypt", { text })
-  if (data.success) { el.textContent = data.result; el.className = "result-box" }
-  else { el.textContent = "Error: " + data.error; el.className = "result-box error" }
+  try {
+    const key = await getKey(secret)
+    const iv = crypto.getRandomValues(new Uint8Array(16))
+    const enc = new TextEncoder()
+    const encrypted = await crypto.subtle.encrypt(
+      { name: "AES-CBC", iv }, key, enc.encode(text)
+    )
+    el.textContent = toBase64(iv) + ":" + toBase64(encrypted)
+    el.className = "result-box"
+  } catch (e) { el.textContent = "Error: " + e.message; el.className = "result-box error" }
 })
 
 // Decrypt
 document.getElementById("decryptBtn").addEventListener("click", async () => {
   const text = document.getElementById("decryptInput").value
+  const secret = document.getElementById("decryptKey").value || "default-key"
   const el = document.getElementById("decryptResult")
   if (!text) { el.textContent = "Paste encrypted text first"; el.className = "result-box error"; return }
-  el.textContent = "Decrypting..."
-  const data = await api("/api/decrypt", { text })
-  if (data.success) { el.textContent = data.result; el.className = "result-box" }
-  else { el.textContent = "Error: " + data.error; el.className = "result-box error" }
+  try {
+    const parts = text.split(":")
+    const key = await getKey(secret)
+    const decrypted = await crypto.subtle.decrypt(
+      { name: "AES-CBC", iv: new Uint8Array(fromBase64(parts[0])) },
+      key, fromBase64(parts.slice(1).join(":"))
+    )
+    el.textContent = new TextDecoder().decode(decrypted)
+    el.className = "result-box"
+  } catch (e) { el.textContent = "Error: Wrong key or invalid data"; el.className = "result-box error" }
 })
 
 // Hash
@@ -62,8 +66,10 @@ document.getElementById("hashBtn").addEventListener("click", async () => {
   const algo = document.getElementById("hashAlgo").value
   const el = document.getElementById("hashResult")
   if (!text) { el.textContent = "Enter some text first"; el.className = "result-box error"; return }
-  el.textContent = "Hashing..."
-  const data = await api("/api/hash", { text, algorithm: algo })
-  if (data.success) { el.textContent = "[" + data.algorithm.toUpperCase() + "] " + data.result; el.className = "result-box" }
-  else { el.textContent = "Error: " + data.error; el.className = "result-box error" }
+  try {
+    const hash = await crypto.subtle.digest(algo, new TextEncoder().encode(text))
+    const hex = Array.from(new Uint8Array(hash)).map(b => b.toString(16).padStart(2, "0")).join("")
+    el.textContent = "[" + algo + "] " + hex
+    el.className = "result-box"
+  } catch (e) { el.textContent = "Error: " + e.message; el.className = "result-box error" }
 })
