@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cyber API</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>☠️ Cyber API</h1>
+      <p>Backend-powered security tools — real logic, server-side</p>
+    </header>
+
+    <div class="status" id="status">Checking server...</div>
+
+    <div class="tabs">
+      <button class="tab active" data-tab="encrypt">Encrypt</button>
+      <button class="tab" data-tab="decrypt">Decrypt</button>
+      <button class="tab" data-tab="hash">Hash</button>
+    </div>
+
+    <div class="tab-content active" id="encrypt">
+      <h2>AES-256 Encryption</h2>
+      <p class="note">Your text is sent to the server, encrypted with AES-256-CBC, and returned.</p>
+      <div class="input-group">
+        <input type="text" id="encryptInput" placeholder="Enter text to encrypt...">
+        <button class="btn" id="encryptBtn">Encrypt</button>
+      </div>
+      <div id="encryptResult" class="result-box">Result will appear here</div>
+    </div>
+
+    <div class="tab-content" id="decrypt">
+      <h2>Decrypt</h2>
+      <p class="note">Paste an encrypted string to decrypt it.</p>
+      <div class="input-group">
+        <input type="text" id="decryptInput" placeholder="Paste encrypted text...">
+        <button class="btn" id="decryptBtn">Decrypt</button>
+      </div>
+      <div id="decryptResult" class="result-box">Result will appear here</div>
+    </div>
+
+    <div class="tab-content" id="hash">
+      <h2>Hash Generator</h2>
+      <p class="note">Generate secure hashes server-side.</p>
+      <div class="input-group">
+        <input type="text" id="hashInput" placeholder="Enter text to hash...">
+        <select id="hashAlgo">
+          <option value="sha256">SHA-256</option>
+          <option value="sha512">SHA-512</option>
+          <option value="md5">MD5</option>
+        </select>
+        <button class="btn" id="hashBtn">Hash</button>
+      </div>
+      <div id="hashResult" class="result-box">Result will appear here</div>
+    </div>
+
+    <footer>
+      <p>The encryption key is stored server-side in <code>.env</code> — never exposed to the browser.</p>
+    </footer>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
