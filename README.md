@@ -1,8 +1,6 @@
 # ☠️ Cyber API
 
-> Browser-powered encryption & hashing toolkit.  
-> 🔗 **Live Demo:** [https://adhihub.github.io/cyber-api/](https://adhihub.github.io/cyber-api/)  
-> **All code runs client-side** — view the source to see how it works!
+> Encrypt · Decrypt · Hash  > 🔗 **Live Demo:** [https://adhihub.github.io/cyber-api/](https://adhihub.github.io/cyber-api/)
 
 ---
 
