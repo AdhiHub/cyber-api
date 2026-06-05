@@ -1,15 +1,8 @@
 {
   "name": "cyber-api",
   "version": "1.0.0",
-  "description": "Backend-powered encryption & hashing API",
-  "main": "server.js",
+  "description": "Cyber security toolkit — encryption, hashing & security tools (frontend-only)",
   "scripts": {
-    "start": "node server.js",
-    "dev": "node --watch server.js"
-  },
-  "dependencies": {
-    "express": "^4.21.0",
-    "cors": "^2.8.5",
-    "dotenv": "^16.4.0"
+    "start": "npx serve ."
   }
 }
