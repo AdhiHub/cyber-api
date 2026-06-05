@@ -1,6 +1,7 @@
 # ☠️ Cyber API
 
 > Browser-powered encryption & hashing toolkit.  
+> 🔗 **Live Demo:** [https://adhihub.github.io/cyber-api/](https://adhihub.github.io/cyber-api/)  
 > **All code runs client-side** — view the source to see how it works!
 
 ---
@@ -20,7 +21,7 @@ Decrypt text back to original using your secret key.
 
 ## 🚀 How to Use
 
-Open `public/index.html` in any browser. No installation needed.
+Open `index.html` in any browser. No installation needed.
 
 Or run a local server:
 ```bash
@@ -41,11 +42,11 @@ npx serve .
 
 ```
 cyber-api/
-├── public/
-│   ├── index.html     # Main page
-│   ├── style.css      # Dark cyber theme
-│   └── script.js      # All crypto logic (visible!)
+├── index.html     # Main page
+├── style.css      # Dark cyber theme
+├── script.js      # All crypto logic (visible!)
 ├── package.json
+├── LICENSE
 └── README.md
 ```
 
