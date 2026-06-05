@@ -10,10 +10,8 @@
   <div class="container">
     <header>
       <h1>☠️ Cyber API</h1>
-      <p>Backend-powered security tools — real logic, server-side</p>
+      <p>Browser-powered security tools — all code is visible</p>
     </header>
-
-    <div class="status" id="status">Checking server...</div>
 
     <div class="tabs">
       <button class="tab active" data-tab="encrypt">Encrypt</button>
@@ -23,9 +21,10 @@
 
     <div class="tab-content active" id="encrypt">
       <h2>AES-256 Encryption</h2>
-      <p class="note">Your text is sent to the server, encrypted with AES-256-CBC, and returned.</p>
+      <p class="note">Encrypts in your browser using Web Crypto API. Nothing leaves your machine.</p>
       <div class="input-group">
         <input type="text" id="encryptInput" placeholder="Enter text to encrypt...">
+        <input type="text" id="encryptKey" placeholder="Secret key..." style="max-width:120px">
         <button class="btn" id="encryptBtn">Encrypt</button>
       </div>
       <div id="encryptResult" class="result-box">Result will appear here</div>
@@ -33,9 +32,10 @@
 
     <div class="tab-content" id="decrypt">
       <h2>Decrypt</h2>
-      <p class="note">Paste an encrypted string to decrypt it.</p>
+      <p class="note">Decrypt text using your secret key.</p>
       <div class="input-group">
         <input type="text" id="decryptInput" placeholder="Paste encrypted text...">
+        <input type="text" id="decryptKey" placeholder="Secret key..." style="max-width:120px">
         <button class="btn" id="decryptBtn">Decrypt</button>
       </div>
       <div id="decryptResult" class="result-box">Result will appear here</div>
@@ -43,13 +43,13 @@
 
     <div class="tab-content" id="hash">
       <h2>Hash Generator</h2>
-      <p class="note">Generate secure hashes server-side.</p>
+      <p class="note">Generate hashes in your browser using Web Crypto API.</p>
       <div class="input-group">
         <input type="text" id="hashInput" placeholder="Enter text to hash...">
         <select id="hashAlgo">
-          <option value="sha256">SHA-256</option>
-          <option value="sha512">SHA-512</option>
-          <option value="md5">MD5</option>
+          <option value="SHA-256">SHA-256</option>
+          <option value="SHA-512">SHA-512</option>
+          <option value="SHA-1">SHA-1</option>
         </select>
         <button class="btn" id="hashBtn">Hash</button>
       </div>
@@ -57,7 +57,7 @@
     </div>
 
     <footer>
-      <p>The encryption key is stored server-side in <code>.env</code> — never exposed to the browser.</p>
+      <p>All encryption and hashing happens client-side. View the source to see how it works.</p>
     </footer>
   </div>
   <script src="script.js"></script>
