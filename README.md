@@ -5,7 +5,7 @@
 
 ---
 
-## 🔧 What It Does 
+## 🔧 What It Does  
 
 ### 1. 🔐 AES-256 Encryption 
 Enter text + a secret key → get encrypted output. Use the same key to decrypt.
